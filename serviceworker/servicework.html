@@ -18,17 +18,22 @@
     	btn.onclick=function(){
     		document.getElementById('img').src='http://localhost:8888/serviceworker/girllll.jpg';
     	}
-    	if(navigator.serviceWorker){
-    		navigator.serviceWorker.register('/serviceworker/sw.js').then(function(registion){
-    			console.log('service worker successful with scope',registion.scope);
-    			registion.pushManager.subscribe({
-                    userVisibleOnly:true
-                }).then(function(sub){
-                    console.log('endpoint:',sub.endpoint);
+
+        function initialState(){
+            if(Notification.permission === 'denied'){
+                console.warn('no permission');
+                return;
+            }
+
+            navigator.serviceWorker.ready.then(function(registration){
+                registration.pushManager.subscribe().then(function(subscribe){
+                    console.log('subscribe',subscribe);
                 })
-    		}).catch(function(err){
-    			console.log('serviceworker failure',err);
-    		})
+            })
+        }
+
+    	if(navigator.serviceWorker){
+    		navigator.serviceWorker.register('/serviceworker/sw.js').then(initialState);
     	}
     </script>
 </body>
