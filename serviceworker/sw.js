@@ -7,7 +7,6 @@
 importScripts('profill.js');
 var base='/serviceworker/';
 var urlsToCache=[
-	base,
 	base+'style.css',
 	base+'main.js',
 	base+'girl.jpg',
@@ -16,7 +15,7 @@ var urlsToCache=[
 ];
 
 var staticCacheName='static';
-var version='v3::';
+var version='v4::';
 
 function updateStaticCache(){
 	return caches.open(version+staticCacheName)
@@ -52,11 +51,11 @@ self.addEventListener('activate',function(event){
 // 	icon:'girl.jpg',
 // 	tag:'my-tag'
 // })
-console.log(self.registration.showNotification('message',{
-	body:'The Message',
-	icon:'girl.jpg',
-	tag:'my-tag'
-}));
+// console.log(self.registration.showNotification('message',{
+// 	body:'The Message',
+// 	icon:'girl.jpg',
+// 	tag:'my-tag'
+// }));
 
 self.addEventListener('push',function(e){
 	console.log('push',e);
