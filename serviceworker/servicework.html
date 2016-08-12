@@ -26,8 +26,12 @@
             }
 
             navigator.serviceWorker.ready.then(function(registration){
-                registration.pushManager.subscribe().then(function(subscribe){
-                    console.log('subscribe',subscribe);
+                registration.pushManager.getSubscription().then(function(subscribe){
+                    if(!subscribe){
+                        registration.pushManager.subscribe().then(function(subscription){
+                            console.log('key',subscription.getKey());
+                        })
+                    }
                 })
             })
         }

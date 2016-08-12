@@ -15,7 +15,7 @@ var urlsToCache=[
 ];
 
 var staticCacheName='static';
-var version='v4::';
+var version='v5::';
 
 function updateStaticCache(){
 	return caches.open(version+staticCacheName)
@@ -63,7 +63,7 @@ self.addEventListener('push',function(e){
 	e.waitUntil(
 		self.registration.showNotification(title,{
 			body:'The Message',
-			icon:'girl.jpg',
+			icon:'/girl2.jpg',
 			tag:'my-tag'
 		})
 	)
