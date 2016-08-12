@@ -27,6 +27,7 @@
 
             navigator.serviceWorker.ready.then(function(registration){
                 registration.pushManager.getSubscription().then(function(subscribe){
+                    console.log(subscribe);
                     if(!subscribe){
                         registration.pushManager.subscribe({userVisibleOnly: true}).then(function(subscription){
                             console.log('key',subscription);
