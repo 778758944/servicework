@@ -15,7 +15,7 @@ var urlsToCache=[
 ];
 
 var staticCacheName='static';
-var version='v5::';
+var version='v6::';
 
 function updateStaticCache(){
 	return caches.open(version+staticCacheName)
