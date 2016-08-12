@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="/serviceworker/style.css" rel="stylesheet">
+<link rel='manifest' href='manifest.json'>
+</head>
+<body>
+	<img id='img'/>
+	<button id='btn'>show show</button>
+	<a href='http://localhost:8888/serviceworker/another.html'>another</a>
+    <script>
+    	var btn=document.getElementById('btn');
+    	btn.onclick=function(){
+    		document.getElementById('img').src='http://localhost:8888/serviceworker/girllll.jpg';
+    	}
+    	if(navigator.serviceWorker){
+    		navigator.serviceWorker.register('/serviceworker/sw.js').then(function(registion){
+    			console.log('service worker successful with scope',registion.scope);
+    			registion.pushManager.subscribe({
+                    userVisibleOnly:true
+                }).then(function(sub){
+                    console.log('endpoint:',sub.endpoint);
+                })
+    		}).catch(function(err){
+    			console.log('serviceworker failure',err);
+    		})
+    	}
+    </script>
+</body>
+</html>
