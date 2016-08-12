@@ -29,7 +29,7 @@
                 registration.pushManager.getSubscription().then(function(subscribe){
                     if(!subscribe){
                         registration.pushManager.subscribe({userVisibleOnly: true}).then(function(subscription){
-                            console.log('key',subscription.getKey());
+                            console.log('key',subscription);
                         })
                     }
                 })
