@@ -15,7 +15,7 @@ var urlsToCache=[
 ];
 
 var staticCacheName='static';
-var version='v7::';
+var version='v8::';
 
 function updateStaticCache(){
 	return caches.open(version+staticCacheName)
@@ -158,6 +158,28 @@ self.addEventListener('fetch',function(event){
 		)
 
 
+})
+
+self.addEventListener('notificationclick',function(e){
+	console.log('on notification click',e.notification.tag);
+	event.notification.close();
+
+	e.waitUntil(
+		clients.matchAll({
+			type:'window'
+		})
+		.then(function(clientLists){
+			for(var i=0;i<clientLists.length;i++){
+				var client=clientLists[i];
+				if(client.url == '/' && 'focus' in client){
+					return client.focus();
+				}
+			}
+			if(clients.openWindow){
+				return clients.openWindow('/')
+			}
+		})
+		)
 })
 
 
