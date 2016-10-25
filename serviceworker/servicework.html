@@ -12,8 +12,11 @@
 <body>
 	<img id='img'/>
 	<button id='btn'>show show</button>
+    <button id='btn2'>push</button>
 	<a href='http://localhost:8888/serviceworker/another.html'>another</a>
     <script>
+        var auth='AIzaSyCRq7kXFz_ypyTYyBdeWmNtdpSpur_HHfw';
+        var url,registration_id;
     	var btn=document.getElementById('btn');
     	btn.onclick=function(){
     		document.getElementById('img').src='http://localhost:8888/serviceworker/girllll.jpg';
@@ -27,7 +30,11 @@
 
             navigator.serviceWorker.ready.then(function(registration){
                 registration.pushManager.getSubscription().then(function(subscribe){
-                    console.log(subscribe);
+                    if(subscribe){
+                       var subarr=subscribe.endpoint.split('/');
+                       registration_id=subarr.splice(subarr.length-1,1);
+                       url=subarr.join('/');
+                    }
                     if(!subscribe){
                         registration.pushManager.subscribe({userVisibleOnly: true}).then(function(subscription){
                             console.log('key',subscription);
@@ -40,6 +47,38 @@
     	if(navigator.serviceWorker){
     		navigator.serviceWorker.register('/serviceworker/sw.js').then(initialState);
     	}
+
+        var push=function(){
+            var xhr=new XMLHttpRequest();
+            xhr.open('POST',url,true);
+            xhr.setRequestHeader('Authorization','key='+auth);
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xhr.onload=function(res){
+                console.log(res);
+            }
+            xhr.send('registration_ids=['+registration_id+']');
+        }
+
+        document.getElementById('btn2').onclick=push;
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
