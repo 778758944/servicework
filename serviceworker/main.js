@@ -4,4 +4,5 @@
  * @date    2016-07-23 17:31:37
  * @version $Id$
  */
-
+var name = "Jack";
+var age = 11;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>service worker</title>
+</head>
+<body>
+    <h1>Service Worker</h1>
+    <h2>test fetch</h2>
+    <img src="./girl.jpg"/>
+    <img src="./girl2.jpg"/>
+    <img src="https://chat.xingwentao.xyz/userImg/11538361133066.jpg"/>
+    <button id="btn">post</button>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                // register process
+                navigator.serviceWorker.register("./sw2.js").then((registration) => {
+                    console.log("service worker register successfully with scope:", registration);
+                }).catch((err) => {
+                    console.log("ServiceWorker register failed:", err);
+                })
+            })
+        }
+
+        const btn = document.querySelector("#btn");
+        btn.addEventListener("click", (e) => {
+            console.log(e);
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "./main.js", true);
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
